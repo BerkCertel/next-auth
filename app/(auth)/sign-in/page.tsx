@@ -1,23 +1,22 @@
+"use server";
+
 import { GithubSignIn } from "@/components/github-sign-in";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { auth, signIn } from "@/lib/auth";
-import { executeAction } from "@/lib/executeAction";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import SignInForm from "@/components/sign-in-form";
 
 const Page = async () => {
   const session = await auth();
 
   if (session) {
-    // If the user is already authenticated, redirect them to the home page
-
     redirect("/");
   }
 
   return (
     <div className="w-full max-w-sm mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-center mb-6">Sign In</h1>
+      <h1 className="text-3xl font-bold text-center mb-4">Sign In</h1>
 
       <GithubSignIn />
 
@@ -27,53 +26,16 @@ const Page = async () => {
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-background px-2 text-muted-foreground">
-            Or continue with email
+            Or sign in with email
           </span>
         </div>
       </div>
 
-      {/* Email/Password Sign In */}
-      <form
-        className="space-y-4"
-        action={async (formData: FormData) => {
-          "use server";
-
-          await executeAction({
-            actionFn: async () => {
-              const email = formData.get("email") as string;
-              const password = formData.get("password") as string;
-
-              await signIn("credentials", {
-                email,
-                password,
-              });
-            },
-            successMessage: "Signed in successfully!",
-          });
-        }}
-      >
-        <Input
-          name="email"
-          placeholder="Email"
-          type="email"
-          required
-          autoComplete="email"
-        />
-        <Input
-          name="password"
-          placeholder="Password"
-          type="password"
-          required
-          autoComplete="current-password"
-        />
-        <Button className="w-full" type="submit">
-          Sign In
-        </Button>
-      </form>
+      <SignInForm />
 
       <div className="text-center">
         <Button asChild variant="link">
-          <Link href="/sign-up">Don&apos;t have an account? Sign up</Link>
+          <Link href="/sign-up">Dont`have an account? Sign up</Link>
         </Button>
       </div>
     </div>

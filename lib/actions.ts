@@ -1,3 +1,5 @@
+"use server";
+
 import db from "./db/db";
 import { executeAction } from "./executeAction";
 import { schema } from "./schema";

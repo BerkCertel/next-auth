@@ -17,12 +17,12 @@ export default function SignUpForm() {
       const res = await signUp(formData);
 
       if (res.success) {
-        toast.success("Kayıt başarılı!");
+        toast.success("Registration successful!");
         router.push("/sign-in");
       } else {
-        setError(res.message || "Bir hata oluştu.");
-        toast.error("Kayıt başarısız", {
-          description: res.message || "Lütfen bilgilerinizi kontrol edin.",
+        setError(res.message || "An error occurred.");
+        toast.error("Registration failed", {
+          description: res.message || "Please check your information.",
         });
       }
     });

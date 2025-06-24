@@ -21,12 +21,12 @@ export default function SignInForm() {
       try {
         await signIn("credentials", { email, password });
 
-        toast.success("Giriş başarılı!");
+        toast.success("Login successful!");
         router.push("/");
       } catch (err: any) {
-        const message = err?.message || "Giriş sırasında bir hata oluştu.";
+        const message = err?.message || "An error occurred during login.";
         setError(message);
-        toast.error("Giriş başarısız", {
+        toast.error("Login failed", {
           description: message,
         });
       }
